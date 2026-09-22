@@ -6,15 +6,8 @@
 <title>GLOW 請求書確認 管理画面</title>
 <style>
   :root {
-    --bg: #f7f5f2;
-    --card-bg: #ffffff;
-    --ink: #2b2823;
-    --ink-soft: #6b6459;
-    --accent: #b8895a;
-    --accent-soft: #f1e4d6;
-    --line: #e7e1d8;
-    --ok: #4c7a5e;
-    --ok-bg: #e8f2ec;
+    --bg: #f7f5f2; --card-bg: #ffffff; --ink: #2b2823; --ink-soft: #6b6459;
+    --accent: #b8895a; --accent-soft: #f1e4d6; --line: #e7e1d8; --ok: #4c7a5e; --ok-bg: #e8f2ec;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -30,25 +23,49 @@
   body {
     margin: 0; background: var(--bg); color: var(--ink);
     font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
-    padding: 20px 16px 60px;
+    padding: 16px; padding-bottom: 60px;
   }
-  .wrap { max-width: 900px; margin: 0 auto; }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  header.top { padding: 20px 4px 12px; }
+  header.top h1 { font-size: 20px; margin: 0 0 4px; }
+  header.top p { margin: 0; color: var(--ink-soft); font-size: 13px; }
+  .card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+  .card.pending { border-color: var(--accent); }
+  .period-label { font-size: 15px; font-weight: 600; margin: 0 0 10px; }
+  .status-tag { display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-left: 8px; vertical-align: middle; }
+  .status-tag.done { background: var(--ok-bg); color: var(--ok); }
+  table.breakdown { width: 100%; border-collapse: collapse; font-size: 14px; margin: 10px 0 14px; }
+  table.breakdown td { padding: 6px 0; border-bottom: 1px solid var(--line); }
+  table.breakdown td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+  table.breakdown tr.total td { font-weight: 700; font-size: 16px; border-bottom: none; padding-top: 10px; }
+  .btn { display: inline-block; width: 100%; text-align: center; background: var(--accent); color: #fff; border: none; border-radius: 10px; padding: 12px 16px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; box-sizing: border-box; }
+  .btn.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); margin-top: 8px; }
+  .btn.ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); margin-top: 8px; }
+  .done-msg { color: var(--ok); font-size: 14px; font-weight: 600; padding: 10px 0 0; }
+  .invoice { display: none; }
+  .invoice.show { display: block; }
+  .invoice-box { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-top: 12px; background: var(--bg); }
+  .invoice-box h3 { margin: 0 0 10px; font-size: 16px; text-align: center; letter-spacing: 4px; }
+  .invoice-box .row { display: flex; justify-content: space-between; font-size: 13px; padding: 3px 0; }
+  .invoice-box hr { border: none; border-top: 1px solid var(--line); margin: 10px 0; }
+  .note { font-size: 12px; color: var(--ink-soft); margin-top: 10px; }
+  footer { text-align: center; color: var(--ink-soft); font-size: 12px; margin-top: 30px; }
+  .loading { text-align: center; color: var(--ink-soft); padding: 30px 0; }
+  .error-box { border: 1px solid #c0554a; background: #fbeae8; color: #7a2f27; border-radius: 10px; padding: 14px; font-size: 13px; }
+  @media print {
+    body * { visibility: hidden; }
+    .invoice-box, .invoice-box * { visibility: visible; }
+    .invoice-box { position: absolute; top: 0; left: 0; width: 100%; border: none; }
+  }
+
+  .wrap { max-width: 900px; }
   h1 { font-size: 20px; margin: 0 0 4px; }
   p.sub { color: var(--ink-soft); font-size: 13px; margin: 0 0 20px; }
-  .card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
   th, td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: left; }
   th { color: var(--ink-soft); font-weight: 600; font-size: 12px; }
   td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  .status-cell { white-space: nowrap; }
-  .chk { display: flex; align-items: center; gap: 6px; cursor: pointer; }
-  .tag { font-size: 12px; padding: 2px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
-  .tag.done { background: var(--ok-bg); color: var(--ok); }
-  .link-btn, .copy-btn {
-    display: inline-block; font-size: 12px; padding: 5px 10px; border-radius: 8px;
-    border: 1px solid var(--line); background: transparent; color: var(--ink);
-    text-decoration: none; cursor: pointer; margin: 2px 2px 2px 0;
-  }
+  .link-btn, .copy-btn { display: inline-block; font-size: 12px; padding: 5px 10px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--ink); text-decoration: none; cursor: pointer; margin: 2px 2px 2px 0; }
   .note { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
   .note b { color: var(--ink); }
 </style>
@@ -57,140 +74,54 @@
 <div class="wrap">
   <h1>GLOW 報酬・請求書確認 管理画面</h1>
   <p class="sub">田口さん・堤さん（山田さん）、および退職済みスタッフを除く、業務委託スタッフの報酬確認状況一覧</p>
-
-  <div class="card">
-    <table>
-      <thead>
-        <tr><th>No.</th><th>氏名</th><th>直近対象月</th><th>金額</th><th>状態</th><th>個人ページ</th></tr>
-      </thead>
-      <tbody>
-        
-    <tr id="row_001" data-key="001_2026/09/30">
-      <td>001</td>
-      <td>古世子恵</td>
-      <td>2026年9月分</td>
-      <td class="num">¥146,654</td>
-      <td class="status-cell">
-        <label class="chk">
-          <input type="checkbox" onchange="toggleStatus('row_001', this.checked)">
-          <span class="tag" id="tag_row_001">未確認</span>
-        </label>
-      </td>
-      <td><a class="link-btn" href="001.html" target="_blank">開く</a>
-          <button class="copy-btn" onclick="copyLink('001.html', this)">リンクコピー</button></td>
-    </tr>
-    
-    <tr id="row_002" data-key="002_2026/09/30">
-      <td>002</td>
-      <td>鶴見礼子</td>
-      <td>2026年9月分</td>
-      <td class="num">¥100,125</td>
-      <td class="status-cell">
-        <label class="chk">
-          <input type="checkbox" onchange="toggleStatus('row_002', this.checked)">
-          <span class="tag" id="tag_row_002">未確認</span>
-        </label>
-      </td>
-      <td><a class="link-btn" href="002.html" target="_blank">開く</a>
-          <button class="copy-btn" onclick="copyLink('002.html', this)">リンクコピー</button></td>
-    </tr>
-    
-    <tr id="row_011" data-key="011_2026/09/30">
-      <td>011</td>
-      <td>末竹麻美</td>
-      <td>2026年9月分</td>
-      <td class="num">¥72,487</td>
-      <td class="status-cell">
-        <label class="chk">
-          <input type="checkbox" onchange="toggleStatus('row_011', this.checked)">
-          <span class="tag" id="tag_row_011">未確認</span>
-        </label>
-      </td>
-      <td><a class="link-btn" href="011.html" target="_blank">開く</a>
-          <button class="copy-btn" onclick="copyLink('011.html', this)">リンクコピー</button></td>
-    </tr>
-    
-    <tr id="row_015" data-key="015_2026/09/30">
-      <td>015</td>
-      <td>服部みゆき</td>
-      <td>2026年9月分</td>
-      <td class="num">¥71,870</td>
-      <td class="status-cell">
-        <label class="chk">
-          <input type="checkbox" onchange="toggleStatus('row_015', this.checked)">
-          <span class="tag" id="tag_row_015">未確認</span>
-        </label>
-      </td>
-      <td><a class="link-btn" href="015.html" target="_blank">開く</a>
-          <button class="copy-btn" onclick="copyLink('015.html', this)">リンクコピー</button></td>
-    </tr>
-    
-    <tr id="row_017" data-key="017_2026/09/30">
-      <td>017</td>
-      <td>桑原さおり</td>
-      <td>2026年9月分</td>
-      <td class="num">¥11,505</td>
-      <td class="status-cell">
-        <label class="chk">
-          <input type="checkbox" onchange="toggleStatus('row_017', this.checked)">
-          <span class="tag" id="tag_row_017">未確認</span>
-        </label>
-      </td>
-      <td><a class="link-btn" href="017.html" target="_blank">開く</a>
-          <button class="copy-btn" onclick="copyLink('017.html', this)">リンクコピー</button></td>
-    </tr>
-    
-      </tbody>
-    </table>
-  </div>
-
+  <div class="card"><table>
+    <thead><tr><th>No.</th><th>氏名</th><th>直近対象月</th><th>金額</th><th>個人ページ</th></tr></thead>
+    <tbody id="rows"><tr><td colspan="5" class="loading">読み込み中...</td></tr></tbody>
+  </table></div>
   <div class="card note">
     <p><b>使い方</b></p>
-    <p>① 各スタッフの「開く」リンクをご本人にLINE等で送付してください（初回は下記の共有設定が必要です）。<br>
+    <p>① 各スタッフの「開く」リンクをご本人にLINE等で送付してください。<br>
     ② 本人が内容を確認して「OK」を押すと、確認内容が自動でシステムに送られます（田村さんがメールを見る必要はありません）。<br>
     ③ 毎日自動で処理が走り、請求書PDFが作成されてDriveの「従業員給与明細 &gt; 請求書」フォルダに保存されます。田村さんはこのフォルダを確認するだけでOKです。</p>
-    <p>下の表のチェックボックスは、ご自身の管理用メモとして使いたい場合にご利用ください（このチェックはこの画面を開いたブラウザにのみ保存され、Driveの処理には影響しません）。</p>
-    <p><b>重要：共有設定について</b><br>
-    各個人ページは現在田村さんだけが閲覧できる状態です。スタッフに送る前に、各ページ右上の共有メニューから「リンクを知っている全員が閲覧可」などに変更してください。</p>
+    <p><b>新しい月のデータについて</b><br>
+    田村さんは給与計算ソフトからCSVを出力して送るだけです。データの反映（スプレッドシートへの追加）はこちらで行います。ページ側・GitHub側は一切触る必要はありません。</p>
   </div>
 </div>
-
 <script>
-function toggleStatus(rowId, checked) {
-  const tag = document.getElementById('tag_' + rowId);
-  if (checked) {
-    tag.textContent = '確認済み';
-    tag.classList.add('done');
-  } else {
-    tag.textContent = '未確認';
-    tag.classList.remove('done');
-  }
-  try {
-    const row = document.getElementById(rowId);
-    localStorage.setItem('glow_admin_' + row.getAttribute('data-key'), checked ? '1' : '0');
-  } catch (e) {}
-}
+const STAFF = [{"code": "001", "name": "古世子恵"}, {"code": "002", "name": "鶴見礼子"}, {"code": "011", "name": "末竹麻美"}, {"code": "015", "name": "服部みゆき"}, {"code": "017", "name": "桑原さおり"}];
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTJKWtH3UfVER0DykPuigf9swabmxBsH89doF-PpeEgQNLKL29M1-7S_3MPM-yrQaa0K8ngnoUtoPdG/pub?output=csv";
 
-function copyLink(url, btn) {
-  navigator.clipboard.writeText(url).then(function() {
-    const orig = btn.textContent;
-    btn.textContent = 'コピーしました';
-    setTimeout(function() { btn.textContent = orig; }, 1500);
+function yen(n) { return "¥" + Number(n).toLocaleString("ja-JP"); }
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const headers = lines[0].split(",");
+  return lines.slice(1).map(function(line) {
+    const cols = line.split(",");
+    const obj = {};
+    headers.forEach(function(h, i) { obj[h.trim()] = (cols[i] || "").trim(); });
+    return obj;
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('tr[data-key]').forEach(function(row) {
-    try {
-      const val = localStorage.getItem('glow_admin_' + row.getAttribute('data-key'));
-      if (val === '1') {
-        const cb = row.querySelector('input[type=checkbox]');
-        cb.checked = true;
-        toggleStatus(row.id, true);
-      }
-    } catch (e) {}
+fetch(CSV_URL)
+  .then(function(res) { if (!res.ok) throw new Error("fetch failed"); return res.text(); })
+  .then(function(text) {
+    const all = parseCsv(text).filter(function(r) { return Number(r.total) > 0; });
+    const tbody = document.getElementById("rows");
+    tbody.innerHTML = STAFF.map(function(s) {
+      const rows = all.filter(function(r) { return String(Number(r.code)) === String(Number(s.code)); });
+      rows.sort(function(a, b) { return b.period_key.localeCompare(a.period_key); });
+      const latest = rows[0];
+      const monthLabel = latest ? latest.month_label + "分" : "―";
+      const total = latest ? yen(latest.total) : "―";
+      return '<tr><td>' + s.code + '</td><td>' + s.name + '</td><td>' + monthLabel + '</td><td class="num">' + total + '</td>' +
+        '<td><a class="link-btn" href="' + s.code + '.html" target="_blank">開く</a></td></tr>';
+    }).join("");
+  })
+  .catch(function(err) {
+    document.getElementById("rows").innerHTML = '<tr><td colspan="5" class="error-box">データの読み込みに失敗しました。時間をおいて再読み込みしてください。</td></tr>';
   });
-});
 </script>
 </body>
 </html>
