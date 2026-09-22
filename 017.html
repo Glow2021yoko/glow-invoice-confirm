@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>桑原さおりさん 報酬確認</title>
+<style>
+  :root {
+    --bg: #f7f5f2;
+    --card-bg: #ffffff;
+    --ink: #2b2823;
+    --ink-soft: #6b6459;
+    --accent: #b8895a;
+    --accent-soft: #f1e4d6;
+    --line: #e7e1d8;
+    --ok: #4c7a5e;
+    --ok-bg: #e8f2ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1a17;
+      --card-bg: #262320;
+      --ink: #efeae2;
+      --ink-soft: #a89f92;
+      --accent: #d2a172;
+      --accent-soft: #3a2f24;
+      --line: #3a352e;
+      --ok: #7fbf9c;
+      --ok-bg: #1f3128;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1a17;
+    --card-bg: #262320;
+    --ink: #efeae2;
+    --ink-soft: #a89f92;
+    --accent: #d2a172;
+    --accent-soft: #3a2f24;
+    --line: #3a352e;
+    --ok: #7fbf9c;
+    --ok-bg: #1f3128;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    padding: 16px;
+    padding-bottom: 60px;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  header.top { padding: 20px 4px 12px; }
+  header.top h1 { font-size: 20px; margin: 0 0 4px; }
+  header.top p { margin: 0; color: var(--ink-soft); font-size: 13px; }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .card.pending { border-color: var(--accent); }
+  .period-label { font-size: 15px; font-weight: 600; margin: 0 0 10px; }
+  .status-tag {
+    display: inline-block;
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .status-tag.done { background: var(--ok-bg); color: var(--ok); }
+  table.breakdown { width: 100%; border-collapse: collapse; font-size: 14px; margin: 10px 0 14px; }
+  table.breakdown td { padding: 6px 0; border-bottom: 1px solid var(--line); }
+  table.breakdown td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+  table.breakdown tr.total td { font-weight: 700; font-size: 16px; border-bottom: none; padding-top: 10px; }
+  .btn {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+  .btn.secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    margin-top: 8px;
+  }
+  .btn.ghost {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    margin-top: 8px;
+  }
+  .done-msg { color: var(--ok); font-size: 14px; font-weight: 600; padding: 10px 0 0; }
+  .invoice { display: none; }
+  .invoice.show { display: block; }
+  .invoice-box {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 12px;
+    background: var(--bg);
+  }
+  .invoice-box h3 { margin: 0 0 10px; font-size: 16px; text-align: center; letter-spacing: 4px; }
+  .invoice-box .row { display: flex; justify-content: space-between; font-size: 13px; padding: 3px 0; }
+  .invoice-box hr { border: none; border-top: 1px solid var(--line); margin: 10px 0; }
+  .note { font-size: 12px; color: var(--ink-soft); margin-top: 10px; }
+  footer { text-align: center; color: var(--ink-soft); font-size: 12px; margin-top: 30px; }
+  @media print {
+    body * { visibility: hidden; }
+    .invoice-box, .invoice-box * { visibility: visible; }
+    .invoice-box { position: absolute; top: 0; left: 0; width: 100%; border: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>桑原さおり さん</h1>
+    <p>Total Beauty Salon GLOW（イージー合同会社） 報酬内容の確認 / OK確認フォーム</p>
+  </header>
+
+  
+  <div class="card pending" id="card_202609" data-period="202609">
+    <p class="period-label">2026年9月分<span class="status-tag" id="tag_202609">未確認</span></p>
+    <table class="breakdown">
+      <tr><td>報酬</td><td>¥9,284</td></tr>
+      <tr><td>交通費</td><td>¥880</td></tr>
+      <tr class="total"><td>合計</td><td>¥11,505</td></tr>
+    </table>
+    <button class="btn" id="btn_202609" onclick="markOk('202609')">内容を確認しました（OK）</button>
+    <p class="done-msg" id="msg_202609" style="display:none;">確認ありがとうございます！下の「確認を送信する」を押すと完了です。請求書は自動で発行されます。</p>
+    <div class="invoice" id="inv_202609">
+      <div class="invoice-box">
+        <h3>請求書</h3>
+        <div class="row"><span>請求書番号</span><span>GLOW-017-202609</span></div>
+        <div class="row"><span>発行日</span><span>2026年9月30日</span></div>
+        <div class="row"><span>請求先</span><span>Total Beauty Salon GLOW（イージー合同会社）</span></div>
+        <div class="row"><span>請求元</span><span>桑原さおり</span></div>
+        <hr>
+        <div class="row"><span>2026年9月分 業務委託報酬</span><span>¥9,284</span></div>
+        <div class="row"><span>交通費</span><span>¥880</span></div>
+        <hr>
+        <div class="row" style="font-weight:700; font-size:15px;"><span>ご請求金額（合計）</span><span>¥11,505</span></div>
+        <p class="note">お振込先はご登録済みの口座情報の通りです。</p>
+      </div>
+      <a class="btn" href="mailto:tamura@easyllc.jp?subject=%5B%E8%AB%8B%E6%B1%82%E6%9B%B8%E7%A2%BA%E8%AA%8DOK%5D%20017_%E6%A1%91%E5%8E%9F%E3%81%95%E3%81%8A%E3%82%8A_2026%E5%B9%B49%E6%9C%88%E5%88%86&body=%E3%82%B9%E3%82%BF%E3%83%83%E3%83%95%E3%82%B3%E3%83%BC%E3%83%89%3A%20017%0A%E6%B0%8F%E5%90%8D%3A%20%E6%A1%91%E5%8E%9F%E3%81%95%E3%81%8A%E3%82%8A%0A%E5%AF%BE%E8%B1%A1%E6%9C%88%3A%202026%E5%B9%B49%E6%9C%88%E5%88%86%0A%E5%A0%B1%E9%85%AC%3A%20%C2%A59%2C284%0A%E4%BA%A4%E9%80%9A%E8%B2%BB%3A%20%C2%A5880%0A%E5%90%88%E8%A8%88%3A%20%C2%A511%2C505%0A%E8%AB%8B%E6%B1%82%E6%9B%B8%E7%95%AA%E5%8F%B7%3A%20GLOW-017-202609%0A%E5%86%85%E5%AE%B9%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82OK%E3%81%A7%E3%81%99%E3%80%82">確認を送信する</a>
+      <button class="btn secondary" onclick="printInvoice('202609')">この内容を印刷 / 控えを保存</button>
+      <p class="note">「確認を送信する」を押してメールアプリが開いたら、そのまま送信してください。自動で請求書が発行され、田村さん側で保管されます。</p>
+    </div>
+  </div>
+
+  <div class="card pending" id="card_202608" data-period="202608">
+    <p class="period-label">2026年8月分<span class="status-tag" id="tag_202608">未確認</span></p>
+    <table class="breakdown">
+      <tr><td>報酬</td><td>¥18,136</td></tr>
+      <tr><td>交通費</td><td>¥1,760</td></tr>
+      <tr class="total"><td>合計</td><td>¥22,587</td></tr>
+    </table>
+    <button class="btn" id="btn_202608" onclick="markOk('202608')">内容を確認しました（OK）</button>
+    <p class="done-msg" id="msg_202608" style="display:none;">確認ありがとうございます！下の「確認を送信する」を押すと完了です。請求書は自動で発行されます。</p>
+    <div class="invoice" id="inv_202608">
+      <div class="invoice-box">
+        <h3>請求書</h3>
+        <div class="row"><span>請求書番号</span><span>GLOW-017-202608</span></div>
+        <div class="row"><span>発行日</span><span>2026年8月31日</span></div>
+        <div class="row"><span>請求先</span><span>Total Beauty Salon GLOW（イージー合同会社）</span></div>
+        <div class="row"><span>請求元</span><span>桑原さおり</span></div>
+        <hr>
+        <div class="row"><span>2026年8月分 業務委託報酬</span><span>¥18,136</span></div>
+        <div class="row"><span>交通費</span><span>¥1,760</span></div>
+        <hr>
+        <div class="row" style="font-weight:700; font-size:15px;"><span>ご請求金額（合計）</span><span>¥22,587</span></div>
+        <p class="note">お振込先はご登録済みの口座情報の通りです。</p>
+      </div>
+      <a class="btn" href="mailto:tamura@easyllc.jp?subject=%5B%E8%AB%8B%E6%B1%82%E6%9B%B8%E7%A2%BA%E8%AA%8DOK%5D%20017_%E6%A1%91%E5%8E%9F%E3%81%95%E3%81%8A%E3%82%8A_2026%E5%B9%B48%E6%9C%88%E5%88%86&body=%E3%82%B9%E3%82%BF%E3%83%83%E3%83%95%E3%82%B3%E3%83%BC%E3%83%89%3A%20017%0A%E6%B0%8F%E5%90%8D%3A%20%E6%A1%91%E5%8E%9F%E3%81%95%E3%81%8A%E3%82%8A%0A%E5%AF%BE%E8%B1%A1%E6%9C%88%3A%202026%E5%B9%B48%E6%9C%88%E5%88%86%0A%E5%A0%B1%E9%85%AC%3A%20%C2%A518%2C136%0A%E4%BA%A4%E9%80%9A%E8%B2%BB%3A%20%C2%A51%2C760%0A%E5%90%88%E8%A8%88%3A%20%C2%A522%2C587%0A%E8%AB%8B%E6%B1%82%E6%9B%B8%E7%95%AA%E5%8F%B7%3A%20GLOW-017-202608%0A%E5%86%85%E5%AE%B9%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82OK%E3%81%A7%E3%81%99%E3%80%82">確認を送信する</a>
+      <button class="btn secondary" onclick="printInvoice('202608')">この内容を印刷 / 控えを保存</button>
+      <p class="note">「確認を送信する」を押してメールアプリが開いたら、そのまま送信してください。自動で請求書が発行され、田村さん側で保管されます。</p>
+    </div>
+  </div>
+
+  <div class="card pending" id="card_202607" data-period="202607">
+    <p class="period-label">2026年7月分<span class="status-tag" id="tag_202607">未確認</span></p>
+    <table class="breakdown">
+      <tr><td>報酬</td><td>¥6,534</td></tr>
+      <tr><td>交通費</td><td>¥880</td></tr>
+      <tr class="total"><td>合計</td><td>¥7,414</td></tr>
+    </table>
+    <button class="btn" id="btn_202607" onclick="markOk('202607')">内容を確認しました（OK）</button>
+    <p class="done-msg" id="msg_202607" style="display:none;">確認ありがとうございます！下の「確認を送信する」を押すと完了です。請求書は自動で発行されます。</p>
+    <div class="invoice" id="inv_202607">
+      <div class="invoice-box">
+        <h3>請求書</h3>
+        <div class="row"><span>請求書番号</span><span>GLOW-017-202607</span></div>
+        <div class="row"><span>発行日</span><span>2026年7月31日</span></div>
+        <div class="row"><span>請求先</span><span>Total Beauty Salon GLOW（イージー合同会社）</span></div>
+        <div class="row"><span>請求元</span><span>桑原さおり</span></div>
+        <hr>
+        <div class="row"><span>2026年7月分 業務委託報酬</span><span>¥6,534</span></div>
+        <div class="row"><span>交通費</span><span>¥880</span></div>
+        <hr>
+        <div class="row" style="font-weight:700; font-size:15px;"><span>ご請求金額（合計）</span><span>¥7,414</span></div>
+        <p class="note">お振込先はご登録済みの口座情報の通りです。</p>
+      </div>
+      <a class="btn" href="mailto:tamura@easyllc.jp?subject=%5B%E8%AB%8B%E6%B1%82%E6%9B%B8%E7%A2%BA%E8%AA%8DOK%5D%20017_%E6%A1%91%E5%8E%9F%E3%81%95%E3%81%8A%E3%82%8A_2026%E5%B9%B47%E6%9C%88%E5%88%86&body=%E3%82%B9%E3%82%BF%E3%83%83%E3%83%95%E3%82%B3%E3%83%BC%E3%83%89%3A%20017%0A%E6%B0%8F%E5%90%8D%3A%20%E6%A1%91%E5%8E%9F%E3%81%95%E3%81%8A%E3%82%8A%0A%E5%AF%BE%E8%B1%A1%E6%9C%88%3A%202026%E5%B9%B47%E6%9C%88%E5%88%86%0A%E5%A0%B1%E9%85%AC%3A%20%C2%A56%2C534%0A%E4%BA%A4%E9%80%9A%E8%B2%BB%3A%20%C2%A5880%0A%E5%90%88%E8%A8%88%3A%20%C2%A57%2C414%0A%E8%AB%8B%E6%B1%82%E6%9B%B8%E7%95%AA%E5%8F%B7%3A%20GLOW-017-202607%0A%E5%86%85%E5%AE%B9%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82OK%E3%81%A7%E3%81%99%E3%80%82">確認を送信する</a>
+      <button class="btn secondary" onclick="printInvoice('202607')">この内容を印刷 / 控えを保存</button>
+      <p class="note">「確認を送信する」を押してメールアプリが開いたら、そのまま送信してください。自動で請求書が発行され、田村さん側で保管されます。</p>
+    </div>
+  </div>
+
+  <div class="card pending" id="card_202606" data-period="202606">
+    <p class="period-label">2026年6月分<span class="status-tag" id="tag_202606">未確認</span></p>
+    <table class="breakdown">
+      <tr><td>報酬</td><td>¥6,942</td></tr>
+      <tr><td>交通費</td><td>¥1,320</td></tr>
+      <tr class="total"><td>合計</td><td>¥8,262</td></tr>
+    </table>
+    <button class="btn" id="btn_202606" onclick="markOk('202606')">内容を確認しました（OK）</button>
+    <p class="done-msg" id="msg_202606" style="display:none;">確認ありがとうございます！下の「確認を送信する」を押すと完了です。請求書は自動で発行されます。</p>
+    <div class="invoice" id="inv_202606">
+      <div class="invoice-box">
+        <h3>請求書</h3>
+        <div class="row"><span>請求書番号</span><span>GLOW-017-202606</span></div>
+        <div class="row"><span>発行日</span><span>2026年6月30日</span></div>
+        <div class="row"><span>請求先</span><span>Total Beauty Salon GLOW（イージー合同会社）</span></div>
+        <div class="row"><span>請求元</span><span>桑原さおり</span></div>
+        <hr>
+        <div class="row"><span>2026年6月分 業務委託報酬</span><span>¥6,942</span></div>
+        <div class="row"><span>交通費</span><span>¥1,320</span></div>
+        <hr>
+        <div class="row" style="font-weight:700; font-size:15px;"><span>ご請求金額（合計）</span><span>¥8,262</span></div>
+        <p class="note">お振込先はご登録済みの口座情報の通りです。</p>
+      </div>
+      <a class="btn" href="mailto:tamura@easyllc.jp?subject=%5B%E8%AB%8B%E6%B1%82%E6%9B%B8%E7%A2%BA%E8%AA%8DOK%5D%20017_%E6%A1%91%E5%8E%9F%E3%81%95%E3%81%8A%E3%82%8A_2026%E5%B9%B46%E6%9C%88%E5%88%86&body=%E3%82%B9%E3%82%BF%E3%83%83%E3%83%95%E3%82%B3%E3%83%BC%E3%83%89%3A%20017%0A%E6%B0%8F%E5%90%8D%3A%20%E6%A1%91%E5%8E%9F%E3%81%95%E3%81%8A%E3%82%8A%0A%E5%AF%BE%E8%B1%A1%E6%9C%88%3A%202026%E5%B9%B46%E6%9C%88%E5%88%86%0A%E5%A0%B1%E9%85%AC%3A%20%C2%A56%2C942%0A%E4%BA%A4%E9%80%9A%E8%B2%BB%3A%20%C2%A51%2C320%0A%E5%90%88%E8%A8%88%3A%20%C2%A58%2C262%0A%E8%AB%8B%E6%B1%82%E6%9B%B8%E7%95%AA%E5%8F%B7%3A%20GLOW-017-202606%0A%E5%86%85%E5%AE%B9%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82OK%E3%81%A7%E3%81%99%E3%80%82">確認を送信する</a>
+      <button class="btn secondary" onclick="printInvoice('202606')">この内容を印刷 / 控えを保存</button>
+      <p class="note">「確認を送信する」を押してメールアプリが開いたら、そのまま送信してください。自動で請求書が発行され、田村さん側で保管されます。</p>
+    </div>
+  </div>
+
+
+  <footer>内容にご不明点があれば田村さんまでご連絡ください。</footer>
+</div>
+
+<script>
+const STAFF_CODE = "017";
+const LIZ_EMAIL = "tamura@easyllc.jp";
+
+function getKey(periodKey) { return "glow_invoice_ok_" + STAFF_CODE + "_" + periodKey; }
+
+function markOk(periodKey) {
+  try { localStorage.setItem(getKey(periodKey), "1"); } catch (e) {}
+  const card = document.getElementById("card_" + periodKey);
+  if (card) {
+    card.classList.remove("pending");
+    const btn = document.getElementById("btn_" + periodKey);
+    if (btn) btn.style.display = "none";
+    const tag = document.getElementById("tag_" + periodKey);
+    if (tag) { tag.textContent = "確認済み"; tag.classList.add("done"); }
+    const msg = document.getElementById("msg_" + periodKey);
+    if (msg) msg.style.display = "block";
+    const inv = document.getElementById("inv_" + periodKey);
+    if (inv) inv.classList.add("show");
+  }
+}
+
+function initState() {
+  document.querySelectorAll("[data-period]").forEach(function(card) {
+    const periodKey = card.getAttribute("data-period");
+    try {
+      if (localStorage.getItem(getKey(periodKey)) === "1") {
+        markOk(periodKey);
+      }
+    } catch (e) {}
+  });
+}
+
+function printInvoice(periodKey) {
+  window.print();
+}
+
+document.addEventListener("DOMContentLoaded", initState);
+</script>
+</body>
+</html>
